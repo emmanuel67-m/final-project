@@ -1,20 +1,15 @@
 import React, { useState } from "react";
-import { Link,NavLink,} from "react-router-dom";
-import {Menu,X,Leaf,ArrowRight,} from "lucide-react";
+import { Link } from "react-router-dom";
+import { Menu, X, Leaf, ArrowRight } from "lucide-react";
 
 import Button from "./Button";
 
 const links = [
-  ["Home", "/"],
   ["How It Works", "/#how-it-works"],
-  ["Marketplace", "/marketplace"],
-  ["For Farmers", "/register?role=farmer"],
-  ["For Buyers", "/register?role=buyer"],
-  ["For Transporters", "/register?role=transporter"],
   ["About", "/#about"],
 ];
 
- function Navbar() {
+function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -31,15 +26,12 @@ const links = [
           </span>
 
           <span className="font-display text-xl font-extrabold tracking-tight text-green-900">
-            Agri
-            <span className="text-green-500">
-              Connect
-            </span>
+            Easy<span className="text-green-500">Easy</span>
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-5 xl:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {links.map(([label, to]) => (
             <a
               key={label}
@@ -54,9 +46,7 @@ const links = [
         {/* Desktop Actions */}
         <div className="hidden items-center gap-2 lg:flex">
           <Link to="/login">
-            <Button variant="ghost">
-              Login
-            </Button>
+            <Button variant="ghost">Login</Button>
           </Link>
 
           <Link to="/register">
@@ -94,25 +84,14 @@ const links = [
 
             {/* Mobile Actions */}
             <div className="mt-2 grid grid-cols-2 gap-2">
-              <Link
-                to="/login"
-                onClick={() => setOpen(false)}
-              >
-                <Button
-                  variant="outline"
-                  className="w-full"
-                >
+              <Link to="/login" onClick={() => setOpen(false)}>
+                <Button variant="outline" className="w-full">
                   Login
                 </Button>
               </Link>
 
-              <Link
-                to="/register"
-                onClick={() => setOpen(false)}
-              >
-                <Button className="w-full">
-                  Get Started
-                </Button>
+              <Link to="/register" onClick={() => setOpen(false)}>
+                <Button className="w-full">Get Started</Button>
               </Link>
             </div>
           </div>
@@ -121,7 +100,5 @@ const links = [
     </header>
   );
 }
-
-
 
 export default Navbar;

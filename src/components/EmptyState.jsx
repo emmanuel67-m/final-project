@@ -3,7 +3,7 @@ import { Leaf } from "lucide-react";
 
  function EmptyState({
   title = "Nothing here yet",
-  text = "Your activity will appear here as you start using AgriConnect.",
+  text = "Your activity will appear here as you start usingEasyEasy.",
 }) {
   return (
     <div className="rounded-2xl border border-dashed border-green-200 bg-white p-10 text-center">

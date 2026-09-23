@@ -2,9 +2,27 @@ import React, { useState } from "react";
 import {Send,MoreVertical,Phone,Paperclip,} from "lucide-react";
 import {conversations,chatMessages,} from "../data/messages";
 
- function ChatWindow() {
-  const [selected, setSelected] = useState(conversations[0]);
-  const [messages, setMessages] = useState(chatMessages);
+ function ChatWindow({ role = "farmer" }) {
+  const visibleConversations = conversations.filter(
+    (conversation) => conversation.role === "Buyer"
+  );
+  const [selected, setSelected] = useState(visibleConversations[0]);
+  const initialMessages =
+    role === "transporter"
+      ? [
+          {
+            from: "them",
+            text: "Hello! Please confirm the delivery timing.",
+            time: "10:35 AM",
+          },
+          {
+            from: "me",
+            text: "The delivery is scheduled and on track.",
+            time: "10:38 AM",
+          },
+        ]
+      : chatMessages.filter((message) => !message.text.includes("Musa"));
+  const [messages, setMessages] = useState(initialMessages);
   const [text, setText] = useState("");
 
   const send = () => {
@@ -37,7 +55,7 @@ import {conversations,chatMessages,} from "../data/messages";
         </div>
 
         <div>
-          {conversations.map((c) => (
+          {visibleConversations.map((c) => (
             <button
               key={c.id}
               onClick={() => setSelected(c)}

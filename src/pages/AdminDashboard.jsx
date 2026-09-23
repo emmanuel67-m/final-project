@@ -33,7 +33,7 @@ import { deliveries } from "../data/deliveries";
     <DashboardLayout
       role="admin"
       title="Admin dashboard"
-      subtitle="Monitor the AgriConnect network and marketplace activity."
+      subtitle="Monitor theEasyEasy network and marketplace activity."
     >
       {/* Dashboard Cards */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

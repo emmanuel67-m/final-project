@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink,useNavigate,} from "react-router-dom";
-import {Leaf,LayoutDashboard,ShoppingBasket,Truck,MessageSquare,WalletCards,Star,UserCircle,Settings,Heart,CreditCard,BriefcaseBusiness,LogOut,X,CarFront, ClipboardList,Users,ShieldAlert,} from "lucide-react";
+import {Leaf,LayoutDashboard,ShoppingBasket,Truck,MessageSquare,WalletCards,Star,UserCircle,Settings,BriefcaseBusiness,LogOut,X,CarFront, ClipboardList,Users,ShieldAlert,} from "lucide-react";
 
 const roleConfig = {
   farmer: [
@@ -10,19 +10,6 @@ const roleConfig = {
     ["Deliveries", "/delivery-tracking", Truck],
     ["Messages", "/messages", MessageSquare],
     ["Earnings", "/farmer/dashboard?tab=earnings", WalletCards],
-    ["Reviews", "/profile", Star],
-    ["Profile", "/profile", UserCircle],
-    ["Settings", "/profile?tab=settings", Settings],
-  ],
-
-  buyer: [
-    ["Dashboard", "/buyer/dashboard", LayoutDashboard],
-    ["Marketplace", "/marketplace", ShoppingBasket],
-    ["My Orders", "/buyer/dashboard?tab=orders", ClipboardList],
-    ["Deliveries", "/delivery-tracking", Truck],
-    ["Messages", "/messages", MessageSquare],
-    ["Favorites", "/marketplace", Heart],
-    ["Payments", "/buyer/dashboard?tab=payments", CreditCard],
     ["Reviews", "/profile", Star],
     ["Profile", "/profile", UserCircle],
     ["Settings", "/profile?tab=settings", Settings],
@@ -88,7 +75,7 @@ const roleConfig = {
             </span>
 
             <span className="font-display font-extrabold text-green-900">
-              AgriConnect
+             EasyEasy
             </span>
           </NavLink>
 
@@ -134,7 +121,10 @@ const roleConfig = {
 
         {/* Sign Out */}
         <button
-          onClick={() => nav("/")}
+          onClick={() => {
+            localStorage.removeItem("easyeasy_session");
+            nav("/");
+          }}
           className="mt-4 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-500 hover:bg-red-50 hover:text-red-600"
         >
           <LogOut size={18} />

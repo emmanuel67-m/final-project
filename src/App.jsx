@@ -6,12 +6,12 @@ import Marketplace from "./pages/Marketplace";
 import ProductDetails from "./pages/ProductDetails";
 import { Login, Register } from "./pages/Auth";
 import { FarmerDashboard,FarmerListings, AddProduce,} from "./pages/FarmerDashboard";
-import BuyerDashboard from "./pages/BuyerDashboard";
 import TransporterDashboard, { DeliveryJobs,} from "./pages/TransporterDashboard";
 import DeliveryTracking from "./pages/DeliveryTracking";
 import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
 import AdminDashboard from "./pages/AdminDashboard";
+import ComingSoon from "./pages/ComingSoon";
 
  function App() {
   return (
@@ -45,7 +45,7 @@ import AdminDashboard from "./pages/AdminDashboard";
         
         <Route
           path="/buyer/dashboard"
-          element={<BuyerDashboard />}
+          element={<ComingSoon />}
         />
 
         <Route

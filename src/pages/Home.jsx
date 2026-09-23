@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
-import ProductCard from "../components/ProductCard";
-import { products } from "../data/products";
 
 const stats = [
   ["500+", "Farmers"],
@@ -26,11 +24,6 @@ const stats = [
 
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-2 lg:px-8 lg:py-24">
             <div className="relative z-10">
-              <span className="inline-flex items-center gap-2 rounded-full border border-green-700 bg-green-900/60 px-3 py-1.5 text-xs font-bold text-green-200">
-                <Leaf size={14} />
-                Built for Africa's food supply chain
-              </span>
-
               <h1 className="font-display mt-5 max-w-2xl text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
                 Connecting{" "}
                 <span className="text-green-400">Farms</span>, Buyers &
@@ -38,7 +31,7 @@ const stats = [
               </h1>
 
               <p className="mt-5 max-w-xl text-base leading-7 text-green-100 sm:text-lg">
-                AgriConnect makes it easier for farmers to sell, buyers to
+               EasyEasy makes it easier for farmers to sell, buyers to
                 source fresh produce, and transporters to move agricultural
                 goods efficiently.
               </p>
@@ -56,7 +49,7 @@ const stats = [
                     variant="outline"
                     className="w-full border-green-700 text-white hover:bg-green-900 sm:w-auto"
                   >
-                    Join AgriConnect
+                    JoinEasyEasy
                   </Button>
                 </Link>
               </div>
@@ -82,28 +75,13 @@ const stats = [
 
               <div className="relative overflow-hidden rounded-[2rem] border border-green-700 shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1200&q=85"
+                  src="https://i.pinimg.com/1200x/29/f0/48/29f048545b3c56e02eb5e620ec61c543.jpg"
                   alt="African farm landscape"
                   className="h-[420px] w-full object-cover sm:h-[500px]"
                 />
 
-                <div className="absolute bottom-5 left-5 right-5 rounded-2xl bg-white/95 p-4 text-slate-900 shadow-lg backdrop-blur">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-green-100 text-green-800">
-                      <ShieldCheck />
-                    </div>
-
-                    <div>
-                      <p className="font-bold">
-                        Verified supply network
-                      </p>
-
-                      <p className="text-xs text-slate-500">
-                        Trusted farmers, buyers & logistics partners
-                      </p>
-                    </div>
-                  </div>
-                </div>
+               
+                
               </div>
             </div>
           </div>
@@ -124,7 +102,7 @@ const stats = [
             </h2>
 
             <p className="mt-4 text-slate-600">
-              Three people, one platform. AgriConnect keeps every handoff
+              Three people, one platform.EasyEasy keeps every handoff
               visible so food can move faster and more reliably.
             </p>
           </div>
@@ -141,9 +119,9 @@ const stats = [
               [
                 ShoppingBasket,
                 "Buyers",
-                "Find & Order",
-                "Discover fresh produce from verified farmers and place your order.",
-                "/marketplace",
+                "Coming Soon",
+                "The buyer workspace for sourcing and ordering produce is being prepared.",
+                "/buyer/dashboard",
               ],
               [
                 Truck,
@@ -216,42 +194,9 @@ const stats = [
           </div>
         </section>
 
-        {/* Marketplace Section */}
-        <section className="bg-green-50/70 py-16 lg:py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-              <div>
-                <span className="text-sm font-bold uppercase tracking-widest text-green-700">
-                  Fresh marketplace
-                </span>
 
-                <h2 className="font-display mt-2 text-3xl font-extrabold text-slate-900">
-                  What’s moving today
-                </h2>
 
-                <p className="mt-2 text-slate-600">
-                  Realistic sample listings from farms across Nigeria.
-                </p>
-              </div>
 
-              <Link
-                to="/marketplace"
-                className="inline-flex items-center gap-2 font-bold text-green-800"
-              >
-                Browse all produce
-                <ArrowRight size={17} />
-              </Link>
-            </div>
-
-            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {products.slice(0, 4).map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* About Section */}
         <section
           id="about"
           className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8 lg:py-20"
@@ -266,7 +211,7 @@ const stats = [
 
           <div>
             <span className="text-sm font-bold uppercase tracking-widest text-green-700">
-              Why AgriConnect
+              WhyEasyEasy
             </span>
 
             <h2 className="font-display mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">
@@ -274,7 +219,7 @@ const stats = [
             </h2>
 
             <p className="mt-4 leading-7 text-slate-600">
-              Agriculture works best when everyone can plan. AgriConnect
+              Agriculture works best when everyone can plan.EasyEasy
               brings product availability, order status, delivery
               coordination and reviews into one clear experience.
             </p>
@@ -301,7 +246,7 @@ const stats = [
           </div>
         </section>
 
-        {/* CTA Section */}
+      
         <section className="bg-green-950 py-16 text-white">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="grid gap-8 lg:grid-cols-3">
@@ -315,7 +260,7 @@ const stats = [
                 </h2>
 
                 <p className="mt-4 max-w-2xl text-green-200">
-                  Whether you grow, source or transport food, AgriConnect
+                  Whether you grow, source or transport food,EasyEasy
                   gives you the tools to move with confidence.
                 </p>
               </div>

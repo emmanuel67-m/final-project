@@ -1,5 +1,5 @@
 import React from "react";
-import {MapPin,Truck,UserRound,Package,Clock3,} from "lucide-react";
+import {MapPin,Truck,Package,Clock3,} from "lucide-react";
 import DashboardLayout from "../components/DashboardLayout";
 import StatusTracker from "../components/StatusTracker";
 import StatusBadge from "../components/StatusBadge";
@@ -8,12 +8,18 @@ import { deliveries } from "../data/deliveries";
 
 function DeliveryTracking() {
   const d = deliveries[0];
+  const session = JSON.parse(localStorage.getItem("easyeasy_session") || "null");
+  const role = session?.role || "farmer";
 
   return (
     <DashboardLayout
-      role="buyer"
+      role={role}
       title="Delivery Tracking"
-      subtitle="Follow your produce from pickup to destination."
+      subtitle={
+        role === "transporter"
+          ? "Manage your active routes and delivery progress."
+          : "Follow your produce from pickup to destination."
+      }
     >
       <div className="grid gap-6 xl:grid-cols-[1.6fr_1fr]">
         {/* Tracking Section */}
@@ -54,7 +60,7 @@ function DeliveryTracking() {
                   </span>
 
                   <span className="rounded-lg bg-white px-2 py-1 text-xs font-bold shadow">
-                    Farm
+                    Pickup
                   </span>
                 </div>
 
@@ -69,10 +75,9 @@ function DeliveryTracking() {
                   </span>
                 </div>
 
-                {/* Buyer */}
                 <div className="absolute right-[10%] top-[55%] flex -translate-y-1/2 items-center gap-2">
                   <span className="rounded-lg bg-white px-2 py-1 text-xs font-bold shadow">
-                    Buyer
+                    Destination
                   </span>
 
                   <span className="flex h-11 w-11 items-center justify-center rounded-full bg-green-600 text-white shadow-lg">
@@ -115,12 +120,9 @@ function DeliveryTracking() {
               {[
                 ["Pickup", d.pickup, MapPin],
                 ["Destination", d.destination, MapPin],
-                ["Transporter", "Musa Logistics", UserRound],
-                [
-                  "Delivery fee",
-                  `₦${d.fee.toLocaleString()}`,
-                  WalletIcon,
-                ],
+                ...(role === "transporter"
+                  ? []
+                  : [["Delivery fee", `₦${d.fee.toLocaleString()}`, WalletIcon]]),
                 ["Estimated arrival", d.eta, Clock3],
               ].map(([l, v, Icon]) => (
                 <div key={l} className="flex gap-3">
@@ -149,12 +151,11 @@ function DeliveryTracking() {
             </p>
 
             <p className="mt-2 font-display text-xl font-extrabold">
-              Farmer → Transporter → Buyer
+              Pickup → In transit → Destination
             </p>
 
             <p className="mt-2 text-sm leading-6 text-green-200">
-              Your shipment is currently with the transporter.
-              Status updates are shared at every handoff.
+              Your shipment status is updated as it moves through each stage.
             </p>
           </div>
         </aside>

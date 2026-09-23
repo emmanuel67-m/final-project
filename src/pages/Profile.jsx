@@ -8,7 +8,48 @@ import { products } from "../data/products";
 
 function Profile() {
   const [f, setF] = useState(false);
+  const session = JSON.parse(localStorage.getItem("easyeasy_session") || "null");
+  const role = session?.role || "farmer";
   const farmer = farmers[0];
+
+  if (role === "transporter") {
+    return (
+      <DashboardLayout
+        role="transporter"
+        title="Profile"
+        subtitle="Manage your transporter profile and vehicle details."
+      >
+        <div className="grid gap-6 lg:grid-cols-[1fr_1.4fr]">
+          <section className="rounded-3xl border border-green-100 bg-white p-6 shadow-card">
+            <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-green-100 text-3xl font-extrabold text-green-800">
+              ML
+            </div>
+            <h1 className="font-display mt-5 text-2xl font-extrabold">
+              Musa Logistics
+            </h1>
+            <p className="mt-1 text-sm text-slate-500">Transporter account</p>
+            <div className="mt-6 space-y-3 border-t border-slate-100 pt-5 text-sm">
+              <p><span className="text-slate-500">Vehicle:</span> Small Truck</p>
+              <p><span className="text-slate-500">Capacity:</span> 2,500 kg</p>
+              <p><span className="text-slate-500">Service area:</span> North Central</p>
+            </div>
+          </section>
+
+          <section className="rounded-3xl border border-green-100 bg-white p-6 shadow-card">
+            <h2 className="font-display text-xl font-extrabold">Transport performance</h2>
+            <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              {[["86", "Completed deliveries"], ["98%", "On-time rate"], ["4.9", "Average rating"]].map(([value, label]) => (
+                <div key={label} className="rounded-2xl bg-green-50 p-4">
+                  <p className="font-display text-2xl font-extrabold text-green-900">{value}</p>
+                  <p className="mt-1 text-xs leading-5 text-slate-500">{label}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   return (
     <DashboardLayout
