@@ -1,5 +1,4 @@
 import React from "react";
-import { Leaf } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -10,9 +9,11 @@ function Footer() {
           {/* Brand */}
           <div className="sm:col-span-1">
             <div className="mb-4 flex items-center gap-2">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-500 text-white">
-                <Leaf size={21} />
-              </span>
+              <img
+                src="/Gemini_Generated_Image_g7c81g7c81g7c81g.jpg"
+                alt="EasyEasy Farms"
+                className="h-10 w-10 rounded-xl object-cover"
+              />
 
               <span className="font-display text-xl font-extrabold">
                 EasyEasy

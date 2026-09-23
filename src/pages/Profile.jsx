@@ -3,11 +3,12 @@ import {ShieldCheck,MapPin,CalendarDays,PackageCheck,Edit3,Star,} from "lucide-r
 import DashboardLayout from "../components/DashboardLayout";
 import RatingStars from "../components/RatingStars";
 import { farmers } from "../data/users";
-import { products } from "../data/products";
+import { getProducts } from "../data/products";
 
 
 function Profile() {
   const [f, setF] = useState(false);
+  const [products] = useState(() => getProducts());
   const session = JSON.parse(localStorage.getItem("easyeasy_session") || "null");
   const role = session?.role || "farmer";
   const farmer = farmers[0];

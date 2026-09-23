@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Leaf, ShieldCheck, ArrowLeft } from "lucide-react";
+import { ShieldCheck, ArrowLeft } from "lucide-react";
 import Button from "../components/Button";
 
 // Where each role lands after auth
@@ -129,24 +129,23 @@ function Register() {
     const email = form.get("email");
     const password = form.get("password");
     const existingUsers = getUsers();
+    const normalizedEmail = email.trim().toLowerCase();
 
-    if (existingUsers.some((user) => user.email === email.trim().toLowerCase())) {
-      setError("An account with this email already exists. Please sign in.");
+    if (existingUsers.some((user) => user.email === normalizedEmail)) {
+      setError("This email already has an account. Please sign in instead.");
       setLoading(false);
       return;
     }
 
-    existingUsers.push({
+    const newUser = {
       name: fullName.trim(),
-      email: email.trim().toLowerCase(),
+      email: normalizedEmail,
       password,
       role,
-    });
+    };
+    existingUsers.push(newUser);
     localStorage.setItem(USERS_KEY, JSON.stringify(existingUsers));
-    localStorage.setItem(
-      "easyeasy_session",
-      JSON.stringify(existingUsers[existingUsers.length - 1])
-    );
+    localStorage.setItem("easyeasy_session", JSON.stringify(newUser));
     setLoading(false);
     nav(ROLE_ROUTES[role]);
   };
@@ -162,7 +161,7 @@ function Register() {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {[
           ["farmer", "Farmer"],
           ["transporter", "Transporter"],
@@ -171,10 +170,10 @@ function Register() {
             type="button"
             key={v}
             onClick={() => setRole(v)}
-            className={`rounded-xl border px-2 py-3 text-xs font-bold ${
+            className={`rounded-xl border px-4 py-3 text-sm font-bold transition ${
               role === v
-                ? "border-green-700 bg-green-50 text-green-800"
-                : "border-slate-200 text-slate-500"
+                ? "border-green-700 bg-green-50 text-green-800 shadow-sm"
+                : "border-slate-200 bg-white text-slate-600 hover:border-green-300 hover:bg-green-50/50"
             }`}
           >
             {l}
@@ -182,7 +181,7 @@ function Register() {
         ))}
       </div>
 
-      <form onSubmit={submit} className="mt-5 space-y-4">
+      <form onSubmit={submit} className="mt-6 space-y-5">
         <label className="block text-sm font-semibold">
           Full / business name
           <input
@@ -209,7 +208,7 @@ function Register() {
         </label>
 
         {role === "transporter" && (
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <label className="text-sm font-semibold">
               Vehicle
               <select
@@ -257,16 +256,16 @@ function Register() {
           />
         </label>
 
-        <Button type="submit" disabled={loading} className="w-full py-3">
+        <Button type="submit" disabled={loading} className="w-full py-3.5">
           {loading ? "Creating account..." : `Create ${role} account`}
         </Button>
       </form>
 
-      <p className="mt-5 text-center text-xs text-slate-500">
+      <p className="mt-6 text-center text-xs leading-5 text-slate-500">
         By creating an account, you agree to EasyEasy's terms and community
         standards.
       </p>
-      <p className="mt-3 text-center text-sm text-slate-500">
+      <p className="mt-4 text-center text-sm text-slate-500">
         Already registered?{" "}
         <Link className="font-bold text-green-800" to="/login">
           Sign in
@@ -279,11 +278,13 @@ function Register() {
 function AuthShell({ title, text, children }) {
   return (
     <div className="min-h-screen bg-green-950 lg:grid lg:grid-cols-2">
-      <div className="hidden p-10 text-white lg:flex lg:flex-col lg:justify-between">
+      <div className="hidden min-h-screen p-10 text-white lg:flex lg:flex-col lg:justify-between xl:p-16">
         <Link to="/" className="flex items-center gap-2">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-500">
-            <Leaf />
-          </span>
+          <img
+            src="/Gemini_Generated_Image_g7c81g7c81g7c81g.jpg"
+            alt="EasyEasy Farms"
+            className="h-10 w-10 rounded-xl object-cover"
+          />
           <span className="font-display text-xl font-extrabold">EasyEasy</span>
         </Link>
         <div>
@@ -297,16 +298,11 @@ function AuthShell({ title, text, children }) {
             Join farmers, food businesses and transporters building a more
             reliable agricultural supply chain.
           </p>
-          <div className="mt-8 flex items-center gap-2 text-sm font-semibold text-green-200">
-            <ShieldCheck size={18} />
-            Verified community workflows
-          </div>
         </div>
-        <p className="text-xs text-green-400">EasyEasy · Nigeria</p>
       </div>
 
-      <div className="flex min-h-screen items-center justify-center bg-[#f7faf7] p-4 sm:p-8">
-        <div className="w-full max-w-md">
+      <div className="flex min-h-screen items-center justify-center bg-[#f7faf7] px-4 py-8 sm:px-8 lg:px-10 xl:px-16">
+        <div className="w-full max-w-lg">
           <Link
             to="/"
             className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-green-800"
@@ -315,7 +311,7 @@ function AuthShell({ title, text, children }) {
             Back to home
           </Link>
 
-          <div className="rounded-3xl border border-green-100 bg-white p-6 shadow-soft sm:p-8">
+          <div className="rounded-3xl border border-green-100 bg-white p-5 shadow-soft sm:p-8">
             <div className="mb-6">
               <h2 className="font-display text-2xl font-extrabold text-slate-900">
                 {title}

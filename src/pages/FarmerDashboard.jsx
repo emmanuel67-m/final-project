@@ -7,9 +7,11 @@ import OrderTable from "../components/OrderTable";
 import StatusBadge from "../components/StatusBadge";
 import Button from "../components/Button";
 import { orders } from "../data/orders";
-import { products } from "../data/products";
+import { addProduct, getProducts } from "../data/products";
 
  function FarmerDashboard() {
+  const [listingProducts] = React.useState(() => getProducts());
+
   return (
     <DashboardLayout
       role="farmer"
@@ -209,7 +211,7 @@ import { products } from "../data/products";
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {products.slice(0, 4).map((p) => (
+          {listingProducts.slice(0, 4).map((p) => (
             <div
               key={p.id}
               className="overflow-hidden rounded-2xl border border-green-100 bg-white shadow-card"
@@ -251,6 +253,8 @@ import { products } from "../data/products";
 }
 
  function FarmerListings() {
+  const [listingProducts] = React.useState(() => getProducts());
+
   return (
     <DashboardLayout
       role="farmer"
@@ -273,7 +277,7 @@ import { products } from "../data/products";
       </div>
 
       <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {products.map((p) => (
+        {listingProducts.map((p) => (
           <div
             key={p.id}
             className="overflow-hidden rounded-2xl border border-green-100 bg-white shadow-card"
@@ -348,9 +352,42 @@ import { products } from "../data/products";
 
           {/* Form */}
           <form
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
+              const formElement = e.currentTarget;
+              const form = new FormData(formElement);
+              const imageFile = form.get("image");
+              let image =
+                "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=80";
+
+              if (imageFile instanceof File && imageFile.size > 0) {
+                image = await new Promise((resolve, reject) => {
+                  const reader = new FileReader();
+                  reader.onload = () => resolve(reader.result);
+                  reader.onerror = reject;
+                  reader.readAsDataURL(imageFile);
+                });
+              }
+
+              addProduct({
+                id: Date.now(),
+                name: form.get("name").trim(),
+                category: form.get("category"),
+                farmerId: 1,
+                farmer: "Abdulrahman Farms",
+                location: form.get("location").trim(),
+                quantity: Number(form.get("quantity")),
+                unit: form.get("unit"),
+                price: Number(form.get("price")),
+                grade: form.get("grade"),
+                harvestDate: form.get("harvestDate"),
+                rating: 0,
+                image,
+                description: form.get("description").trim(),
+                verified: false,
+              });
               setPublished(true);
+              formElement.reset();
             }}
             className="grid gap-5 md:grid-cols-2"
           >
@@ -360,6 +397,7 @@ import { products } from "../data/products";
 
               <input
                 required
+                name="name"
                 placeholder="e.g. Fresh Tomatoes"
                 className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3"
               />
@@ -369,7 +407,7 @@ import { products } from "../data/products";
             <label className="text-sm font-semibold">
               Category
 
-              <select className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3">
+              <select name="category" className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3">
                 <option>Vegetables</option>
                 <option>Grains</option>
                 <option>Tubers</option>
@@ -385,6 +423,7 @@ import { products } from "../data/products";
 
               <input
                 required
+                name="quantity"
                 type="number"
                 placeholder="500"
                 className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3"
@@ -395,7 +434,7 @@ import { products } from "../data/products";
             <label className="text-sm font-semibold">
               Unit
 
-              <select className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3">
+              <select name="unit" className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3">
                 <option>kg</option>
                 <option>tonne</option>
                 <option>bags</option>
@@ -409,6 +448,7 @@ import { products } from "../data/products";
 
               <input
                 required
+                name="price"
                 type="number"
                 placeholder="850"
                 className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3"
@@ -419,7 +459,7 @@ import { products } from "../data/products";
             <label className="text-sm font-semibold">
               Quality / grade
 
-              <select className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3">
+              <select name="grade" className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3">
                 <option>Grade A</option>
                 <option>Premium</option>
                 <option>Grade B</option>
@@ -432,6 +472,7 @@ import { products } from "../data/products";
 
               <input
                 required
+                name="harvestDate"
                 type="date"
                 className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3"
               />
@@ -443,6 +484,7 @@ import { products } from "../data/products";
 
               <input
                 required
+                name="location"
                 placeholder="Ilorin, Kwara State"
                 className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3"
               />
@@ -454,6 +496,7 @@ import { products } from "../data/products";
 
               <input
                 type="file"
+                name="image"
                 accept="image/*"
                 className="mt-2 w-full rounded-xl border border-dashed border-green-200 bg-green-50 px-4 py-3 text-sm"
               />
@@ -465,6 +508,7 @@ import { products } from "../data/products";
 
               <textarea
                 rows="4"
+                name="description"
                 placeholder="Describe freshness, packaging, expected availability and any useful buyer notes..."
                 className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3"
               />

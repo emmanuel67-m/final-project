@@ -1,6 +1,6 @@
 import React from "react";
 import {NavLink,useNavigate,} from "react-router-dom";
-import {Leaf,LayoutDashboard,ShoppingBasket,Truck,MessageSquare,WalletCards,Star,UserCircle,Settings,BriefcaseBusiness,LogOut,X,CarFront, ClipboardList,Users,ShieldAlert,} from "lucide-react";
+import {LayoutDashboard,ShoppingBasket,Truck,MessageSquare,WalletCards,Star,UserCircle,Settings,BriefcaseBusiness,LogOut,X,CarFront, ClipboardList,Users,ShieldAlert,} from "lucide-react";
 
 const roleConfig = {
   farmer: [
@@ -70,9 +70,11 @@ const roleConfig = {
             to="/"
             className="flex items-center gap-2"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-green-800 text-white">
-              <Leaf size={19} />
-            </span>
+            <img
+              src="/Gemini_Generated_Image_g7c81g7c81g7c81g.jpg"
+              alt="EasyEasy Farms"
+              className="h-9 w-9 rounded-xl object-cover"
+            />
 
             <span className="font-display font-extrabold text-green-900">
              EasyEasy

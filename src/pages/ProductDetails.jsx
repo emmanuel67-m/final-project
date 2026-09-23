@@ -5,15 +5,16 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import RatingStars from "../components/RatingStars";
-import { products } from "../data/products";
+import { getProducts } from "../data/products";
 import { farmers } from "../data/users";
 
 
 function ProductDetails() {
   const { id } = useParams();
 
+  const productList = getProducts();
   const p =
-    products.find((x) => x.id === Number(id)) || products[0];
+    productList.find((x) => x.id === Number(id)) || productList[0];
 
   const farmer =
     farmers.find((x) => x.id === p.farmerId) || farmers[0];

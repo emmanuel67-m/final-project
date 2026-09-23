@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Leaf, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 import Button from "./Button";
 
@@ -21,9 +21,11 @@ function Navbar() {
           className="flex items-center gap-2"
           onClick={() => setOpen(false)}
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-800 text-white shadow-sm">
-            <Leaf size={22} />
-          </span>
+          <img
+            src="/Gemini_Generated_Image_g7c81g7c81g7c81g.jpg"
+            alt="EasyEasy Farms"
+            className="h-10 w-10 rounded-xl object-cover shadow-sm"
+          />
 
           <span className="font-display text-xl font-extrabold tracking-tight text-green-900">
             Easy<span className="text-green-500">Easy</span>

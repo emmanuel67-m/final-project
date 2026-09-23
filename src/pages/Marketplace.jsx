@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
 import Button from "../components/Button";
-import { products, categories } from "../data/products";
+import { categories, getProducts } from "../data/products";
 
 
 function Marketplace() {
@@ -13,10 +13,11 @@ function Marketplace() {
   const [location, setLocation] = useState("All locations");
   const [maxPrice, setMaxPrice] = useState("5000");
   const [available, setAvailable] = useState(true);
+  const [allProducts] = useState(() => getProducts());
 
   const filtered = useMemo(
     () =>
-      products.filter(
+      allProducts.filter(
         (p) =>
           (!search ||
             p.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -27,7 +28,7 @@ function Marketplace() {
           p.price <= Number(maxPrice) &&
           (!available || p.quantity > 0)
       ),
-    [search, cat, location, maxPrice, available]
+    [allProducts, search, cat, location, maxPrice, available]
   );
 
   return (

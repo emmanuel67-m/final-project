@@ -250,3 +250,20 @@ export const categories = [
   "Spices",
 ];
 
+const PRODUCTS_KEY = "easyeasy_products";
+
+export function getProducts() {
+  try {
+    const savedProducts = JSON.parse(localStorage.getItem(PRODUCTS_KEY) || "null");
+    return Array.isArray(savedProducts) ? savedProducts : products;
+  } catch {
+    return products;
+  }
+}
+
+export function addProduct(product) {
+  const savedProducts = [...getProducts(), product];
+  localStorage.setItem(PRODUCTS_KEY, JSON.stringify(savedProducts));
+  return savedProducts;
+}
+
